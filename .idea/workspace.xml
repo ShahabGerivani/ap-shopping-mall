@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Configure initial database schema" />
+    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Complete AbstractEditPanel &amp; change the structure a bit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/SignUpPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="abstract_edit_panel" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,19 +37,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;database__setup&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "sign__up__panel",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\OneDrive\Desktop\Uni\AP\Projects\finalproject" />
@@ -77,13 +81,13 @@
       <option name="project" value="LOCAL" />
       <updated>1718536835165</updated>
     </task>
-    <task id="LOCAL-00003" summary="Configure initial database schema">
+    <task id="LOCAL-00003" summary="Complete AbstractEditPanel &amp; change the structure a bit">
       <option name="closed" value="true" />
-      <created>1718802426780</created>
+      <created>1718717202107</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1718802426780</updated>
+      <updated>1718717202107</updated>
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
@@ -91,7 +95,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Add Main and MainFrame classes" />
-    <MESSAGE value="Configure initial database schema" />
-    <option name="LAST_COMMIT_MESSAGE" value="Configure initial database schema" />
+    <MESSAGE value="Complete AbstractEditPanel &amp; change the structure a bit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete AbstractEditPanel &amp; change the structure a bit" />
   </component>
 </project>
