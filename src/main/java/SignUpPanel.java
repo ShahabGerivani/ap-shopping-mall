@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SignUpPanel extends AbstractEditPanel {
-    SignUpPanel(){
+    SignUpPanel(JFrame frame){
         //تعریف لیبل بالایی
         label = new JLabel("ثبت نام");
         label.setFont(new Font("Arial",Font.PLAIN,30));
@@ -46,6 +46,7 @@ public class SignUpPanel extends AbstractEditPanel {
         signInButton.setFocusable(false);
         signInButton.setPreferredSize(new Dimension(150,35));
         signInButton.setFont(new Font("Arial",Font.PLAIN,18));
+        signInButton.addActionListener((e) -> PanelUtil.changePanel(frame,this,new SignInPanel(frame)));
         buttons[1] = signInButton;
         construct(this);
     }

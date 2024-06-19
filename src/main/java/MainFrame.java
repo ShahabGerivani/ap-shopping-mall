@@ -7,5 +7,7 @@ public class MainFrame extends JFrame {
         this.setSize(800, 600);
         this.setVisible(true);
         this.setResizable(false);
+        SignInPanel signInPanel =new  SignInPanel(this);
+        this.add(signInPanel);
     }
 }
