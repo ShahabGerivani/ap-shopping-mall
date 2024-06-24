@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
 
 public class SignInPanel extends AbstractEditPanel {
-     SignInPanel(JFrame frame){
+     SignInPanel(JFrame frame, Connection dbConnection){
          //تعریف لیبل بالایی
          label = new JLabel("ورود");
          label.setFont(new Font("Arial",Font.PLAIN,30));
@@ -32,7 +33,7 @@ public class SignInPanel extends AbstractEditPanel {
          signUpButton.setFocusable(false);
          signUpButton.setPreferredSize(new Dimension(150,35));
          signUpButton.setFont(new Font("Arial",Font.PLAIN,18));
-         signUpButton.addActionListener((e -> PanelUtil.changePanel(frame,this,new SignUpPanel(frame))));
+         signUpButton.addActionListener((e -> PanelUtil.changePanel(frame,this,new SignUpPanel(frame, dbConnection))));
          buttons[0] =signUpButton;
          JButton signInButton = new JButton("ورود");
          signInButton.setFocusable(false);
