@@ -74,7 +74,7 @@ public class SignInPanel extends AbstractEditPanel {
                             if (user.isAdmin()) {
 //                                PanelUtil.changePanel(frame, this, MainPanel);
                             } else {
-//                                PanelUtil.changePanel(frame, this, ProfilePanel);
+                                PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, user));
                             }
                         }
                     }

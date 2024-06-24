@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Add password_salt column to users table">
-      <change afterPath="$PROJECT_DIR$/src/main/java/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ProfilePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ap_shopping_mall.db" beforeDir="false" afterPath="$PROJECT_DIR$/ap_shopping_mall.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SignInPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SignInPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SignUpPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SignUpPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -47,7 +47,7 @@
     "Application.TestMain.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "sign__in",
+    "git-widget-placeholder": "profile__panel",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject",
@@ -119,7 +119,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719226782611</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add the class User to store the user in memory">
+      <option name="closed" value="true" />
+      <created>1719234216863</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719234216863</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add sign in functionality">
+      <option name="closed" value="true" />
+      <created>1719234267996</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1719234267996</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,6 +167,8 @@
     <MESSAGE value="Complete AbstractEditPanel &amp; change the structure a bit" />
     <MESSAGE value="Add an authentication utility class (AuthUtil) with methods to hash and check passwords" />
     <MESSAGE value="Add password_salt column to users table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add password_salt column to users table" />
+    <MESSAGE value="Add the class User to store the user in memory" />
+    <MESSAGE value="Add sign in functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add sign in functionality" />
   </component>
 </project>
