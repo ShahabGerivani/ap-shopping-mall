@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
 
 public class ChangePasswordPanel extends AbstractEditPanel{
-    ChangePasswordPanel(){
+    ChangePasswordPanel(JFrame frame, Connection dbConnection, User user){
         //تعریف لیبل بالایی
         label = new JLabel("تغییر رمز عبور");
         label.setFont(new Font("Arial",Font.PLAIN,30));
@@ -35,12 +36,18 @@ public class ChangePasswordPanel extends AbstractEditPanel{
         passwordRepeatField.setPreferredSize(new Dimension(140,30));
         fields[2] = passwordRepeatField;
         //تعریف دکمه ها
-        buttons = new JButton[1];
+        buttons = new JButton[2];
         JButton changePasswordButton = new JButton("تغییر رمز");
         changePasswordButton.setFocusable(false);
         changePasswordButton.setPreferredSize(new Dimension(150,35));
         changePasswordButton.setFont(new Font("Arial",Font.PLAIN,18));
         buttons[0] = changePasswordButton;
+        JButton cancelButton = new JButton("لغو");
+        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new EditProfilePanel(frame, dbConnection, user)));
+        cancelButton.setFocusable(false);
+        cancelButton.setPreferredSize(new Dimension(150,35));
+        cancelButton.setFont(new Font("Arial",Font.PLAIN,18));
+        buttons[1]=cancelButton;
         construct(this);
     }
 
