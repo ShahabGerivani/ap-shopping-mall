@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Add a bare minimum layout to ProfilePanel ( needs to be completed )" />
+    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Fix Product.rating datatype ( change int to double )">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ProductsDBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ap_shopping_mall.db" beforeDir="false" afterPath="$PROJECT_DIR$/ap_shopping_mall.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,22 +40,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Shop.executor": "Run",
-    "Application.TestMain.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "products",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Shop.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestMain.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;products&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\OneDrive\Desktop\Uni\AP\Projects\finalproject" />
@@ -146,7 +151,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719396580491</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Create class Product to represent products">
+      <option name="closed" value="true" />
+      <created>1719397130986</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719397130986</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fix Product.rating datatype ( change int to double )">
+      <option name="closed" value="true" />
+      <created>1719398561336</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719398561336</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,6 +203,8 @@
     <MESSAGE value="Add sign in functionality" />
     <MESSAGE value="Create ProfilePanel and update related panels" />
     <MESSAGE value="Add a bare minimum layout to ProfilePanel ( needs to be completed )" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add a bare minimum layout to ProfilePanel ( needs to be completed )" />
+    <MESSAGE value="Create class Product to represent products" />
+    <MESSAGE value="Fix Product.rating datatype ( change int to double )" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Product.rating datatype ( change int to double )" />
   </component>
 </project>
