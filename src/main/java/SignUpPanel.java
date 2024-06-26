@@ -79,7 +79,9 @@ public class SignUpPanel extends AbstractEditPanel {
                         insertNewUser.setString(3, hashAndSalt[1]);
                         insertNewUser.executeUpdate();
 
-                        // PanelUtil.changePanel(frame, this, ProfilePanel);
+                        User user = new User(username, null, null, null, 0, false);
+
+                         PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, user));
                     }
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");

@@ -17,5 +17,8 @@ public class MainFrame extends JFrame {
 
         SignInPanel signInPanel = new SignInPanel(this, dbConnection);
         this.add(signInPanel);
+
+        this.revalidate();
+        this.repaint();
     }
 }
