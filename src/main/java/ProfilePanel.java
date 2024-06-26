@@ -86,7 +86,7 @@ public class ProfilePanel extends JPanel {
 
         gbc.gridx=2;
         JButton editButton = new JButton("ویرایش");
-//        editButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new ProfileEditPanel(frame, dbConnection, user)));
+        editButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new EditProfilePanel(frame, dbConnection, user)));
         editButton.setFocusable(false);
         editButton.setPreferredSize(new Dimension(100,35));
         editButton.setFont(new Font("Arial", Font.PLAIN, 20));
