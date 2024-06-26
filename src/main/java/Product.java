@@ -7,9 +7,9 @@ public class Product {
     private String description;
     private int stock;
     private File imageFile;
-    private int rating;
+    private double rating;
 
-    public Product(int id, String name, double price, String description, int stock, File imageFile, int rating) {
+    public Product(int id, String name, double price, String description, int stock, File imageFile, double rating) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -63,11 +63,11 @@ public class Product {
         this.imageFile = imageFile;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 }
