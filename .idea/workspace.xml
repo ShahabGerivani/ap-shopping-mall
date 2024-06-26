@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Add password_salt column to users table">
-      <change afterPath="$PROJECT_DIR$/src/main/java/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ap_shopping_mall.db" beforeDir="false" afterPath="$PROJECT_DIR$/ap_shopping_mall.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SignInPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SignInPanel.java" afterDir="false" />
-    </list>
+    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Add password_salt column to users table" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +42,7 @@
     "Application.TestMain.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "sign__in",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject",
