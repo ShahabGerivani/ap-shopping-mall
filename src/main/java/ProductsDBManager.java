@@ -57,4 +57,14 @@ public class ProductsDBManager {
         statement.close();
         return products;
     }
+
+    public void addNewProduct(String name, double price, String description, int stock, String imageFileName) throws SQLException {
+        PreparedStatement insertNewProductStatement = dbConnection.prepareStatement("INSERT INTO products (name, price, description, stock, image_file_name) VALUES (?, ?, ?, ?, ?)");
+        insertNewProductStatement.setString(1, name);
+        insertNewProductStatement.setDouble(2, price);
+        insertNewProductStatement.setString(3, description);
+        insertNewProductStatement.setInt(4, stock);
+        insertNewProductStatement.setString(5, imageFileName);
+        insertNewProductStatement.executeUpdate();
+    }
 }

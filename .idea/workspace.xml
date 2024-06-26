@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Fix Product.rating datatype ( change int to double )">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ProductsDBManager.java" afterDir="false" />
+    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Create ProductsDBManager class for products' database management &amp; add methods to get all products &amp; to calculate rating for each product.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ap_shopping_mall.db" beforeDir="false" afterPath="$PROJECT_DIR$/ap_shopping_mall.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ProductsDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ProductsDBManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719398561336</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Create ProductsDBManager class for products' database management &amp; add methods to get all products &amp; to calculate rating for each product.">
+      <option name="closed" value="true" />
+      <created>1719404344526</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719404344526</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,6 +212,7 @@
     <MESSAGE value="Add a bare minimum layout to ProfilePanel ( needs to be completed )" />
     <MESSAGE value="Create class Product to represent products" />
     <MESSAGE value="Fix Product.rating datatype ( change int to double )" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix Product.rating datatype ( change int to double )" />
+    <MESSAGE value="Create ProductsDBManager class for products' database management &amp; add methods to get all products &amp; to calculate rating for each product." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create ProductsDBManager class for products' database management &amp; add methods to get all products &amp; to calculate rating for each product." />
   </component>
 </project>
