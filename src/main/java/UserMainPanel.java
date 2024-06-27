@@ -15,7 +15,8 @@ public class UserMainPanel extends JPanel {
     public static final int SORT_BY_RATING_ASC = 3;
     public static final int SORT_BY_RATING_DESC = 4;
 
-    UserMainPanel(JFrame frame, Connection dbConnection, User user, int sortBy) {
+    UserMainPanel(JFrame frame, Connection dbConnection, User user, int sortBy, String searchTerm) {
+        // Preparing the products' list
         ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
         ArrayList<Product> products;
         try {
@@ -39,6 +40,12 @@ public class UserMainPanel extends JPanel {
             }
             default -> products.sort(Comparator.comparing(Product::getId));
         }
+        for (int i = 0; i < products.size(); i++) {
+            if (!products.get(i).getName().contains(searchTerm.trim())) {
+                products.remove(i);
+                i--;
+            }
+        }
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -57,23 +64,23 @@ public class UserMainPanel extends JPanel {
         lowerPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
         gbc.insets = new Insets(5, 3, 3, 3);
 
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        JTextField searchTextField = new JTextField(searchTerm);
+        searchTextField.setPreferredSize(new Dimension(140, 30));
+        searchTextField.setFont(new Font("Arial", Font.PLAIN, 20));
+        lowerPanel.add(searchTextField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         JButton searchButton = new JButton("جستجو");
         searchButton.setFocusable(false);
         searchButton.setPreferredSize(new Dimension(150, 35));
         searchButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        searchButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, user, sortBy, searchTextField.getText())));
         lowerPanel.add(searchButton, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-
-        JTextField searchTextField = new JTextField();
-        searchTextField.setPreferredSize(new Dimension(140, 30));
-        searchTextField.setFont(new Font("Arial", Font.PLAIN, 20));
-        lowerPanel.add(searchTextField, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
@@ -83,7 +90,7 @@ public class UserMainPanel extends JPanel {
         sortComboBox.setSelectedIndex(sortBy);
         sortComboBox.setPreferredSize(new Dimension(140, 30));
         sortComboBox.setFont(new Font("Arial", Font.PLAIN, 20));
-        sortComboBox.addActionListener(e -> PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, user, sortComboBox.getSelectedIndex())));
+        sortComboBox.addActionListener(e -> PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, user, sortComboBox.getSelectedIndex(), searchTerm)));
         lowerPanel.add(sortComboBox, gbc);
 
         gbc.gridx = 3;

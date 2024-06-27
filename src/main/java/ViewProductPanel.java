@@ -135,7 +135,7 @@ public class ViewProductPanel extends JPanel {
         backButton.setFont(new Font("Arial", Font.PLAIN, 17));
         backButton.setPreferredSize(new Dimension(100,35));
         backButton.setFocusable(false);
-        backButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new UserMainPanel(frame,dbConnection,user)));
+        backButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new UserMainPanel(frame,dbConnection,user, UserMainPanel.SORT_DEFAULT, "")));
         this.add(backButton,gbc);
 
         gbc.gridx=3;
