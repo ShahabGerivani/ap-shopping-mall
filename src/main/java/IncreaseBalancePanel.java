@@ -24,7 +24,7 @@ public class IncreaseBalancePanel extends AbstractEditPanel {
         cancelButton.setFocusable(false);
         cancelButton.setPreferredSize(new Dimension(150, 35));
         cancelButton.setFont(new Font("Arial", Font.PLAIN, 18));
-        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new UserMainPanel(frame,dbConnection,user)));
+        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new ProfilePanel(frame,dbConnection,user)));
         buttons[0] = cancelButton;
         JButton payButton = new JButton("پرداخت");
         payButton.setFocusable(false);
