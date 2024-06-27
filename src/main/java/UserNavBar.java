@@ -55,7 +55,7 @@ public class UserNavBar extends JPanel {
         mainPanelButton.setFocusable(false);
         mainPanelButton.setPreferredSize(new Dimension(100, 35));
         mainPanelButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        mainPanelButton.addActionListener(e -> PanelUtil.changePanel(frame,panel,new UserMainPanel(frame, dbConnection, user) ));
+        mainPanelButton.addActionListener(e -> PanelUtil.changePanel(frame,panel,new UserMainPanel(frame, dbConnection, user, UserMainPanel.SORT_DEFAULT) ));
         this.add(mainPanelButton, gbc);
 
         gbc.gridx = 5;
