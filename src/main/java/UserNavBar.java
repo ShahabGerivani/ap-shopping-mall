@@ -1,9 +1,10 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.sql.Connection;
 
 public class UserNavBar extends JPanel {
-    UserNavBar(double balance, String title) {
+    UserNavBar(double balance, String title, JFrame frame, Connection dbConnection, User user,JPanel panel) {
         super();
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -20,6 +21,7 @@ public class UserNavBar extends JPanel {
         increaseBalanceButton.setFocusable(false);
         increaseBalanceButton.setPreferredSize(new Dimension(50, 40));
         increaseBalanceButton.setFont(new Font("Arial", Font.PLAIN, 13));
+        increaseBalanceButton.addActionListener(e -> PanelUtil.changePanel(frame,panel,new IncreaseBalancePanel(frame,dbConnection,user)));
         this.add(increaseBalanceButton, gbc);
 
         gbc.gridx = 1;
@@ -53,6 +55,7 @@ public class UserNavBar extends JPanel {
         mainPanelButton.setFocusable(false);
         mainPanelButton.setPreferredSize(new Dimension(100, 35));
         mainPanelButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        mainPanelButton.addActionListener(e -> PanelUtil.changePanel(frame,panel,new UserMainPanel(frame, dbConnection, user) ));
         this.add(mainPanelButton, gbc);
 
         gbc.gridx = 5;
@@ -69,6 +72,7 @@ public class UserNavBar extends JPanel {
         profileButton.setFocusable(false);
         profileButton.setPreferredSize(new Dimension(100, 35));
         profileButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        profileButton.addActionListener(e -> PanelUtil.changePanel(frame,panel,new ProfilePanel(frame,dbConnection,user)));
         this.add(profileButton, gbc);
 
         Border blackLine = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);

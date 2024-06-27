@@ -14,7 +14,7 @@ public class ProfilePanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridx = 0;
 
-        UserNavBar navBar = new UserNavBar(user.getBalance(),  "خوش آمدید " + user.getUsername());
+        UserNavBar navBar = new UserNavBar(user.getBalance(),  "خوش آمدید " + user.getUsername(),frame,dbConnection,user,this);
         this.add(navBar,gbc);
 
         gbc.gridwidth=1;
