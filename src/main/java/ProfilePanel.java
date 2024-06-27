@@ -11,12 +11,14 @@ public class ProfilePanel extends JPanel {
         gbc.weighty = 1;
         gbc.gridwidth=4;
 
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 0;
         gbc.gridx = 0;
 
         UserNavBar navBar = new UserNavBar(user.getBalance(),  "خوش آمدید " + user.getUsername(),frame,dbConnection,user,this);
         this.add(navBar,gbc);
 
+        gbc.fill = GridBagConstraints.NONE;
         gbc.gridwidth=1;
         gbc.gridx=0;
         gbc.gridy=1;
