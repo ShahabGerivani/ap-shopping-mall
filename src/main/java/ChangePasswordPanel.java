@@ -37,17 +37,17 @@ public class ChangePasswordPanel extends AbstractEditPanel{
         fields[2] = passwordRepeatField;
         //تعریف دکمه ها
         buttons = new JButton[2];
-        JButton changePasswordButton = new JButton("تغییر رمز");
-        changePasswordButton.setFocusable(false);
-        changePasswordButton.setPreferredSize(new Dimension(150,35));
-        changePasswordButton.setFont(new Font("Arial",Font.PLAIN,18));
-        buttons[0] = changePasswordButton;
         JButton cancelButton = new JButton("لغو");
         cancelButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new EditProfilePanel(frame, dbConnection, user)));
         cancelButton.setFocusable(false);
         cancelButton.setPreferredSize(new Dimension(150,35));
         cancelButton.setFont(new Font("Arial",Font.PLAIN,18));
-        buttons[1]=cancelButton;
+        buttons[0]=cancelButton;
+        JButton changePasswordButton = new JButton("تغییر رمز");
+        changePasswordButton.setFocusable(false);
+        changePasswordButton.setPreferredSize(new Dimension(150,35));
+        changePasswordButton.setFont(new Font("Arial",Font.PLAIN,18));
+        buttons[1] = changePasswordButton;
         construct(this);
     }
 
