@@ -3,13 +3,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 
 public class ProductCardPanel extends JPanel {
-    File file;
-
     ProductCardPanel(JFrame frame, Connection dbConnection, User user, Product product, JPanel panel) {
         JLabel imageLabel = new JLabel();
         this.setLayout(new GridBagLayout());
@@ -20,8 +17,8 @@ public class ProductCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         try {
-            if (file != null) {
-                BufferedImage bufferedImage = ImageIO.read(this.file);
+            if (product.getImageFile() != null) {
+                BufferedImage bufferedImage = ImageIO.read(product.getImageFile());
                 ImageIcon imageIcon = new ImageIcon(bufferedImage.getScaledInstance(200, 200, Image.SCALE_DEFAULT));
                 imageLabel.setIcon(imageIcon);
             } else {

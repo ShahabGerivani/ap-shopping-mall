@@ -2,13 +2,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 
 public class ViewProductPanel extends JPanel {
-    File file;
-
     ViewProductPanel(JFrame frame, Connection dbConnection, User user, Product product) {
         this.setLayout(new GridBagLayout());
         JLabel imageLabel = new JLabel();
@@ -36,8 +33,8 @@ public class ViewProductPanel extends JPanel {
         gbc.gridx = 3;
 
         try {
-            if (file != null) {
-                BufferedImage bufferedImage = ImageIO.read(this.file);
+            if (product.getImageFile() != null) {
+                BufferedImage bufferedImage = ImageIO.read(product.getImageFile());
                 ImageIcon imageIcon = new ImageIcon(bufferedImage.getScaledInstance(250, 250, Image.SCALE_DEFAULT));
                 imageLabel.setIcon(imageIcon);
             } else {
@@ -138,6 +135,7 @@ public class ViewProductPanel extends JPanel {
         backButton.setFont(new Font("Arial", Font.PLAIN, 17));
         backButton.setPreferredSize(new Dimension(100,35));
         backButton.setFocusable(false);
+        backButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new UserMainPanel(frame,dbConnection,user)));
         this.add(backButton,gbc);
 
         gbc.gridx=3;
