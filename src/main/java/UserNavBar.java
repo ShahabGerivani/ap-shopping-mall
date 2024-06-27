@@ -40,15 +40,15 @@ public class UserNavBar extends JPanel {
         this.add(increaseBalanceLabel, gbc);
 
         gbc.gridx = 3;
-
-        gbc.insets = new Insets(5,80,5,80);
+        gbc.insets = new Insets(5,0,5,0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(titleLabel, gbc);
 
+        gbc.fill = GridBagConstraints.NONE;
         gbc.gridx = 4;
-
         gbc.insets = new Insets(5,5,5,5);
 
         JButton mainPanelButton = new JButton("صفحه اصلی");
