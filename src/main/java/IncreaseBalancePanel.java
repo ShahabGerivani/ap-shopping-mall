@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
 
 public class IncreaseBalancePanel extends AbstractEditPanel {
-    IncreaseBalancePanel() {
+    IncreaseBalancePanel(JFrame frame, Connection dbConnection, User user) {
         //تعریف لیبل بالایی
         label = new JLabel("افزایش اعتبار");
         label.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -18,13 +19,18 @@ public class IncreaseBalancePanel extends AbstractEditPanel {
         increaseBalanceTextField.setFont(new Font("Arial", Font.PLAIN, 25));
         fields[0] = increaseBalanceTextField;
         // تعریف دکمه
-        buttons = new JButton[1];
+        buttons = new JButton[2];
+        JButton cancelButton = new JButton("لغو");
+        cancelButton.setFocusable(false);
+        cancelButton.setPreferredSize(new Dimension(150, 35));
+        cancelButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new UserMainPanel(frame,dbConnection,user)));
+        buttons[0] = cancelButton;
         JButton payButton = new JButton("پرداخت");
         payButton.setFocusable(false);
         payButton.setPreferredSize(new Dimension(150, 35));
         payButton.setFont(new Font("Arial", Font.PLAIN, 18));
-        buttons[0] = payButton;
-
+        buttons[1] =payButton;
         construct(this);
 
     }
