@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class EditProfilePanel extends JPanel {
     EditProfilePanel(JFrame frame, Connection dbConnection, User user) {
@@ -77,6 +79,29 @@ public class EditProfilePanel extends JPanel {
         submitButton.setPreferredSize(new Dimension(100, 35));
         submitButton.setFont(new Font("Arial", Font.PLAIN, 20));
         submitButton.setFocusable(false);
+        submitButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String phone = phoneField.getText();
+            String address = addressTextArea.getText();
+
+            if (!phone.matches("^(\\+98|0)?9\\d{9}$")) {
+                JOptionPane.showMessageDialog(frame, "شماره وارد شده معتبر نمی باشد!");
+            } else {
+                try {
+                    PreparedStatement updateUserStatement = dbConnection.prepareStatement("UPDATE users SET name = ?, phone = ?, address = ? WHERE username = ?");
+                    updateUserStatement.setString(1, name);
+                    updateUserStatement.setString(2, phone);
+                    updateUserStatement.setString(3, address);
+                    updateUserStatement.setString(4, user.getUsername());
+                    updateUserStatement.executeUpdate();
+                    UsersDBManager usersDBManager = new UsersDBManager(dbConnection);
+                    PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, usersDBManager.getUser(user.getUsername())));
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                    ex.printStackTrace();
+                }
+            }
+        });
         this.add(submitButton, gbc);
     }
 }

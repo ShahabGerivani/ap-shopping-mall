@@ -50,7 +50,7 @@ public class ProfilePanel extends JPanel {
         gbc.gridy=2;
 
         JTextArea addressTextArea = new JTextArea(user.getAddress());
-        addressTextArea.setLineWrap(true);
+//        addressTextArea.setLineWrap(true);
         addressTextArea.setOpaque(false);
         addressTextArea.setEditable(false);
         addressTextArea.setFont(new Font("Arial", Font.PLAIN, 18));
