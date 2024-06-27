@@ -34,4 +34,11 @@ public class UsersDBManager {
 
         return user;
     }
+
+    public void setBalanceForUser(String username, double balance) throws SQLException {
+        PreparedStatement setBalanceStmt = dbConnection.prepareStatement("UPDATE users SET balance = ?, WHERE username = ?");
+        setBalanceStmt.setDouble(1, balance);
+        setBalanceStmt.setString(2, username);
+        setBalanceStmt.executeUpdate();
+    }
 }
