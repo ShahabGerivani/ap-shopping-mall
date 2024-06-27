@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Create a new method in ProductsDBManager for adding a new product to the database.">
+    <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Complete ProfilePanel gui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ProductsDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ProductsDBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewProductPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewProductPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,22 +39,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Shop.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestMain.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;products&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Shop.executor": "Run",
+    "Application.TestMain.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Edit__new__product__panel",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\OneDrive\Desktop\Uni\AP\Projects\finalproject" />
@@ -118,71 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719226782611</updated>
     </task>
-    <task id="LOCAL-00006" summary="Add the class User to store the user in memory">
+    <task id="LOCAL-00006" summary="Complete ProfilePanel gui">
       <option name="closed" value="true" />
-      <created>1719234216863</created>
+      <created>1719406681407</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1719234216863</updated>
+      <updated>1719406681407</updated>
     </task>
-    <task id="LOCAL-00007" summary="Add sign in functionality">
-      <option name="closed" value="true" />
-      <created>1719234267996</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1719234267996</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Create ProfilePanel and update related panels">
-      <option name="closed" value="true" />
-      <created>1719236655134</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1719236655134</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Add a bare minimum layout to ProfilePanel ( needs to be completed )">
-      <option name="closed" value="true" />
-      <created>1719396580491</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1719396580491</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Create class Product to represent products">
-      <option name="closed" value="true" />
-      <created>1719397130986</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1719397130986</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Fix Product.rating datatype ( change int to double )">
-      <option name="closed" value="true" />
-      <created>1719398561336</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1719398561336</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Create ProductsDBManager class for products' database management &amp; add methods to get all products &amp; to calculate rating for each product.">
-      <option name="closed" value="true" />
-      <created>1719404344526</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1719404344526</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Create a new method in ProductsDBManager for adding a new product to the database.">
-      <option name="closed" value="true" />
-      <created>1719406318681</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1719406318681</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,14 +158,8 @@
     <MESSAGE value="Complete AbstractEditPanel &amp; change the structure a bit" />
     <MESSAGE value="Add an authentication utility class (AuthUtil) with methods to hash and check passwords" />
     <MESSAGE value="Add password_salt column to users table" />
-    <MESSAGE value="Add the class User to store the user in memory" />
-    <MESSAGE value="Add sign in functionality" />
-    <MESSAGE value="Create ProfilePanel and update related panels" />
-    <MESSAGE value="Add a bare minimum layout to ProfilePanel ( needs to be completed )" />
-    <MESSAGE value="Create class Product to represent products" />
-    <MESSAGE value="Fix Product.rating datatype ( change int to double )" />
-    <MESSAGE value="Create ProductsDBManager class for products' database management &amp; add methods to get all products &amp; to calculate rating for each product." />
-    <MESSAGE value="Create a new method in ProductsDBManager for adding a new product to the database." />
-    <option name="LAST_COMMIT_MESSAGE" value="Create a new method in ProductsDBManager for adding a new product to the database." />
+    <MESSAGE value="Complete AdminNavBar gui" />
+    <MESSAGE value="Complete ProfilePanel gui" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete ProfilePanel gui" />
   </component>
 </project>
