@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52617138-2792-44b4-9fbe-37e00d0fcc29" name="Changes" comment="Complete ProfilePanel gui">
-      <change afterPath="$PROJECT_DIR$/src/main/java/EditProfilePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChangePasswordPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChangePasswordPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ProfilePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ProfilePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NewProductPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NewProductPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
     "Application.TestMain.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "profile__edit__panel",
+    "git-widget-placeholder": "Edit__new__product__panel",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/ASUS/OneDrive/Desktop/Uni/AP/Projects/finalproject",
