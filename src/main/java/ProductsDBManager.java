@@ -78,6 +78,16 @@ public class ProductsDBManager {
         return id;
     }
 
+    public void updateProduct(int id, double price, String description, int stock, String imageFileName) throws SQLException {
+        PreparedStatement updateProductStmt = dbConnection.prepareStatement("UPDATE products SET price = ?, description = ?, stock = ?, image_file_name = ? WHERE id = ?");
+        updateProductStmt.setDouble(1, price);
+        updateProductStmt.setString(2, description);
+        updateProductStmt.setInt(3, stock);
+        updateProductStmt.setString(4, imageFileName);
+        updateProductStmt.setInt(5, id);
+        updateProductStmt.executeUpdate();
+    }
+
     public Product getProductById(int id) throws SQLException {
         PreparedStatement getProductStmt = dbConnection.prepareStatement("SELECT * FROM products WHERE id = ?");
         getProductStmt.setInt(1, id);
