@@ -1,10 +1,11 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.sql.Connection;
 
 public class AdminNavBar extends JPanel {
 
-    AdminNavBar(double sales ,String title){
+    AdminNavBar(double sales , String title, JFrame frame, Connection dbConnection, User user, JPanel panel){
         super();
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

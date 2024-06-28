@@ -64,6 +64,7 @@ public class UserNavBar extends JPanel {
         cartPanelButton.setFocusable(false);
         cartPanelButton.setPreferredSize(new Dimension(100, 35));
         cartPanelButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        cartPanelButton.addActionListener(e -> PanelUtil.changePanel(frame,panel,new CartPanel(frame,dbConnection,user)));
         this.add(cartPanelButton, gbc);
 
         gbc.gridx = 6;
