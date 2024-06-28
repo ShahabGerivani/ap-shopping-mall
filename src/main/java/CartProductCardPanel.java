@@ -59,13 +59,14 @@ public class CartProductCardPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 1;
 
-        JSpinner productCountSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 20, 1));
+        JSpinner productCountSpinner = new JSpinner(new SpinnerNumberModel(1, 1, product.getStock(), 1));
         productCountSpinner.setPreferredSize(new Dimension(140, 30));
         productCountSpinner.setFont(new Font("Arial", Font.PLAIN, 18));
         productCountSpinner.setValue(cart.getProductsAndCount().get(product));
         productCountSpinner.addChangeListener(e -> {
             try {
                 cartsDBManager.setProductCountInCart(cart.getId(), product.getId(), (Integer) productCountSpinner.getValue());
+                PanelUtil.changePanel(frame, panel, new CartPanel(frame, dbConnection, user));
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
                 ex.printStackTrace();
