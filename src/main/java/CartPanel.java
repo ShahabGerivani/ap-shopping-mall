@@ -68,7 +68,7 @@ public class CartPanel extends JPanel {
         lowerPanel.add(emptyCartButton, gbc);
 
         gbc.gridx = 1;
-        JButton buyButton = new JButton("نهایی کردن سبد و پرداخت");
+        JButton buyButton = new JButton("نهایی کردن سبد");
         buyButton.setFont(new Font("Arial", Font.PLAIN, 20));
         buyButton.setPreferredSize(new Dimension(100, 35));
         buyButton.setFocusable(false);
@@ -76,7 +76,7 @@ public class CartPanel extends JPanel {
             if (cart.getTotal() > user.getBalance()) {
                 JOptionPane.showMessageDialog(frame, "موجودی کافی نیست.");
             } else {
-
+                PanelUtil.changePanel(frame,this,new FinalizeCartPanel(frame,dbConnection,user,cart));
             }
         });
         lowerPanel.add(buyButton, gbc);
