@@ -4,9 +4,21 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ViewProductPanel extends JPanel {
     ViewProductPanel(JFrame frame, Connection dbConnection, User user, Product product) {
+        int currentUserRating;
+        RatingsDBManager ratingsDBManager = new RatingsDBManager(dbConnection);
+        try {
+            currentUserRating = ratingsDBManager.getRating(user.getUsername(), product.getId());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+            PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, user));
+            e.printStackTrace();
+            return;
+        }
+
         this.setLayout(new GridBagLayout());
         JLabel imageLabel = new JLabel();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -96,58 +108,70 @@ public class ViewProductPanel extends JPanel {
         descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(descriptionLabel, gbc);
 
-        gbc.gridwidth = 2;
-        gbc.gridx = 0;
+        gbc.gridwidth = 3;
+        gbc.gridx = 2;
         gbc.gridy = 4;
-
-        JButton submitRatingButton = new JButton("ثبت امتیاز");
-        submitRatingButton.setFont(new Font("Arial", Font.PLAIN, 17));
-        submitRatingButton.setPreferredSize(new Dimension(100,35));
-        submitRatingButton.setFocusable(false);
-        this.add(submitRatingButton,gbc);
-
-        gbc.gridwidth = 3 ;
-        gbc.gridx=2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JSlider ratingSlider = new JSlider(1,5,1);
-        ratingSlider.setPreferredSize(new Dimension(400,200));
+        JSlider ratingSlider = new JSlider(0, 5, 1);
+        ratingSlider.setPreferredSize(new Dimension(400, 200));
         ratingSlider.setPaintTicks(true);
         ratingSlider.setMinorTickSpacing(1);
         ratingSlider.setPaintLabels(true);
         ratingSlider.setPaintTrack(true);
         ratingSlider.setMajorTickSpacing(1);
-        this.add(ratingSlider,gbc);
+        ratingSlider.setValue(currentUserRating);
+        this.add(ratingSlider, gbc);
+
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        JButton submitRatingButton = new JButton("ثبت امتیاز");
+        submitRatingButton.setFont(new Font("Arial", Font.PLAIN, 17));
+        submitRatingButton.setPreferredSize(new Dimension(100, 35));
+        submitRatingButton.setFocusable(false);
+        submitRatingButton.addActionListener(e -> {
+            try {
+                if (currentUserRating == 0) {
+                    ratingsDBManager.submitNewRating(user.getUsername(), product.getId(), ratingSlider.getValue());
+                } else {
+                    ratingsDBManager.updateRating(user.getUsername(), product.getId(), ratingSlider.getValue());
+                }
+                JOptionPane.showMessageDialog(frame, "امتیاز شما با موفقیت ثبت شد.");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+        });
+        this.add(submitRatingButton, gbc);
 
         gbc.gridwidth = 1;
-        gbc.gridx = 5 ;
+        gbc.gridx = 5;
         gbc.fill = GridBagConstraints.NONE;
 
         JLabel ratingLabel = new JLabel("امتیاز دهی: ");
         ratingLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(ratingLabel, gbc);
 
-        gbc.gridwidth=3;
-        gbc.gridy=5;
-        gbc.gridx=0;
+        gbc.gridwidth = 3;
+        gbc.gridy = 5;
+        gbc.gridx = 0;
 
         JButton backButton = new JButton("بازگشت");
         backButton.setFont(new Font("Arial", Font.PLAIN, 17));
-        backButton.setPreferredSize(new Dimension(100,35));
+        backButton.setPreferredSize(new Dimension(100, 35));
         backButton.setFocusable(false);
-        backButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new UserMainPanel(frame,dbConnection,user, UserMainPanel.SORT_DEFAULT, "")));
-        this.add(backButton,gbc);
+        backButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, user, UserMainPanel.SORT_DEFAULT, "")));
+        this.add(backButton, gbc);
 
-        gbc.gridx=3;
+        gbc.gridx = 3;
 
         JButton buyButton = new JButton("خرید");
         buyButton.setFont(new Font("Arial", Font.PLAIN, 17));
-        buyButton.setPreferredSize(new Dimension(100,35));
+        buyButton.setPreferredSize(new Dimension(100, 35));
         buyButton.setFocusable(false);
-        this.add(buyButton,gbc);
-
-
-
+        this.add(buyButton, gbc);
 
 
     }
