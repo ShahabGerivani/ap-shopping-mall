@@ -27,10 +27,10 @@ public class Cart {
 
     public void setProductsAndCount(LinkedHashMap<Product, Integer> productsAndCount) {
         this.productsAndCount = productsAndCount;
-        calculateAndSetTotal();
     }
 
     public double getTotal() {
+        calculateAndSetTotal();
         return total;
     }
 
