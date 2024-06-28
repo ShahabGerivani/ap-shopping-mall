@@ -1,10 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
-public class CartPanel  extends JPanel {
-    CartPanel(JFrame frame, Connection dbConnection, User user){
+public class CartPanel extends JPanel {
+    CartPanel(JFrame frame, Connection dbConnection, User user) {
+        CartsDBManager cartsDBManager = new CartsDBManager(dbConnection);
+        Cart cart;
+        try {
+            cart = cartsDBManager.getOrCreateCartForUser(user.getUsername());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+            PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, user));
+            e.printStackTrace();
+            return;
+        }
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -29,36 +40,28 @@ public class CartPanel  extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        //just for test
-        ArrayList<Product> products = new ArrayList<>();
-        Product product1 = new Product(1,"gol1",100,"hi",10,null,5);
-        Product product2 = new Product(2,"gol2",1000,"himoz",20,null,3);
-        Product product3 = new Product(3,"golabi",1500,"himozjkjk",200,null,1);
-        products.add(product1);
-        products.add(product2);
-        products.add(product3);
-
-        gbc.gridwidth=2;
-        for (int i=0; i<products.size();i++){
-            gbc.gridy=i;
-            lowerPanel.add(new CartProductCardPanel(frame,dbConnection,user,products.get(i),this),gbc);
+        gbc.gridwidth = 2;
+        int i = 0;
+        for (Product product : cart.getProductsAndCount().keySet()) {
+            gbc.gridy = i++;
+            lowerPanel.add(new CartProductCardPanel(frame, dbConnection, user, product, this), gbc);
         }
-        gbc.insets = new Insets(5,3,10,3);
-        gbc.gridwidth=1;
-        gbc.gridx=0;
-        gbc.gridy= products.size();
+        gbc.insets = new Insets(5, 3, 10, 3);
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = cart.getProductsAndCount().size();
         JButton emptyCartBut = new JButton("خالی کردن سبد");
         emptyCartBut.setFont(new Font("Arial", Font.PLAIN, 20));
         emptyCartBut.setPreferredSize(new Dimension(200, 35));
         emptyCartBut.setFocusable(false);
-        lowerPanel.add(emptyCartBut,gbc);
+        lowerPanel.add(emptyCartBut, gbc);
 
-        gbc.gridx=1;
+        gbc.gridx = 1;
         JButton buyButton = new JButton("پرداخت");
         buyButton.setFont(new Font("Arial", Font.PLAIN, 20));
         buyButton.setPreferredSize(new Dimension(100, 35));
         buyButton.setFocusable(false);
-        lowerPanel.add(buyButton,gbc);
+        lowerPanel.add(buyButton, gbc);
 
 
         gridBagConstraints.gridy = 1;
