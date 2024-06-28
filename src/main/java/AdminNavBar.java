@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AdminNavBar extends JPanel {
-    AdminNavBar(String title, JFrame frame, Connection dbConnection, User user, JPanel panel) {
+    AdminNavBar(String title, JFrame frame, Connection dbConnection, User admin, JPanel panel) {
         super();
 
         this.setLayout(new GridBagLayout());
@@ -63,6 +63,7 @@ public class AdminNavBar extends JPanel {
         mainPanelButton.setFocusable(false);
         mainPanelButton.setPreferredSize(new Dimension(100, 35));
         mainPanelButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        mainPanelButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, "")));
         this.add(mainPanelButton, gbc);
 
         gbc.gridx = 4;
@@ -79,7 +80,7 @@ public class AdminNavBar extends JPanel {
         usersListButton.setFocusable(false);
         usersListButton.setPreferredSize(new Dimension(105, 35));
         usersListButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        usersListButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new UsersListPanel(frame, dbConnection, user)));
+        usersListButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new UsersListPanel(frame, dbConnection, admin)));
         this.add(usersListButton, gbc);
 
         Border blackLine = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
