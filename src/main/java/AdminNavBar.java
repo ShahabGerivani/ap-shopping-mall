@@ -72,6 +72,7 @@ public class AdminNavBar extends JPanel {
         newProductButton.setFocusable(false);
         newProductButton.setPreferredSize(new Dimension(100, 35));
         newProductButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        newProductButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new NewProductPanel(frame, dbConnection, admin)));
         this.add(newProductButton, gbc);
 
         gbc.gridx = 5;

@@ -1,3 +1,6 @@
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -5,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class NewProductPanel extends AbstractEditPanel implements ActionListener {
     private File file;
@@ -13,8 +19,8 @@ public class NewProductPanel extends AbstractEditPanel implements ActionListener
     private final JFrame frame;
 
 
-    NewProductPanel(JFrame frame) {
-        this.frame=frame;
+    NewProductPanel(JFrame frame, Connection dbConnection, User admin) {
+        this.frame = frame;
         fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes()));
         //تعریف لیبل بالایی
         label = new JLabel("محصول جدید");
@@ -52,16 +58,16 @@ public class NewProductPanel extends AbstractEditPanel implements ActionListener
         productDescriptionTextField.setFont(new Font("Arial", Font.PLAIN, 14));
         productDescriptionTextField.setLineWrap(true);
         fields[2] = productDescriptionTextField;
-        JSpinner productInventorySpinner = new JSpinner(new SpinnerNumberModel(1, 0, 10000, 1));
-        productInventorySpinner.setPreferredSize(new Dimension(140, 30));
-        productInventorySpinner.setFont(new Font("Arial", Font.PLAIN, 18));
-        fields[3] = productInventorySpinner;
-        JButton choseImageButton = new JButton("انتخاب");
-        choseImageButton.setPreferredSize(new Dimension(120, 30));
-        choseImageButton.setFont(new Font("Arial", Font.PLAIN, 18));
-        choseImageButton.setFocusable(false);
-        choseImageButton.addActionListener(this);
-        fields[4] = choseImageButton;
+        JSpinner productStockSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 10000, 1));
+        productStockSpinner.setPreferredSize(new Dimension(140, 30));
+        productStockSpinner.setFont(new Font("Arial", Font.PLAIN, 18));
+        fields[3] = productStockSpinner;
+        JButton chooseImageButton = new JButton("انتخاب");
+        chooseImageButton.setPreferredSize(new Dimension(120, 30));
+        chooseImageButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        chooseImageButton.setFocusable(false);
+        chooseImageButton.addActionListener(this);
+        fields[4] = chooseImageButton;
 
         //تعریف دکمه ها
         buttons = new JButton[2];
@@ -69,16 +75,56 @@ public class NewProductPanel extends AbstractEditPanel implements ActionListener
         cancelButton.setFocusable(false);
         cancelButton.setPreferredSize(new Dimension(150, 35));
         cancelButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, "")));
         buttons[0] = cancelButton;
         JButton submitButton = new JButton("ثبت");
         submitButton.setFocusable(false);
         submitButton.setPreferredSize(new Dimension(150, 35));
         submitButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        submitButton.addActionListener(e -> {
+            try {
+                String productName = productNameTextField.getText();
+                double productPrice = Double.parseDouble(productPriceTextField.getText());
+                String productDescription = productDescriptionTextField.getText();
+                int productStock = (int) productStockSpinner.getValue();
+                File productImageFile = fileChooser.getSelectedFile();
+
+                if (productName.isBlank()) {
+                    JOptionPane.showMessageDialog(frame, "نام کالا نباید خالی باشد.");
+                } else {
+                    // Adding the product to database
+                    ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
+                    int productId = productsDBManager.addNewProduct(
+                            productName,
+                            productPrice,
+                            productDescription,
+                            productStock,
+                            productImageFile == null ? null : FilenameUtils.getExtension(productImageFile.getName())
+                    );
+
+                    // Saving the image
+                    if (productImageFile != null) {
+                        FileUtils.copyFile(productImageFile, new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + productId + "." + FilenameUtils.getExtension(productImageFile.getName())));
+                    }
+
+                    PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, ""));
+                }
+            } catch (NullPointerException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "لطفا یک عدد برای قیمت وارد کنید.");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "ارور: فایل عکس ذخیره نشد. در صورت نیاز کالا را ویرایش کنید.");
+                ex.printStackTrace();
+            }
+        });
         buttons[1] = submitButton;
 
         construct(this);
     }
-//اکشن پرفورم برای دکمه انتخاب عکس
+
+    //اکشن پرفورم برای دکمه انتخاب عکس
     @Override
     public void actionPerformed(ActionEvent e) {
         fileChooser.setAcceptAllFileFilterUsed(false);
@@ -86,7 +132,7 @@ public class NewProductPanel extends AbstractEditPanel implements ActionListener
         if (option == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
         }
-        JButton fileChooserButton  = (JButton) e.getSource();
+        JButton fileChooserButton = (JButton) e.getSource();
         fileChooserButton.setText(file.getName());
         frame.revalidate();
         frame.repaint();
