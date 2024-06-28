@@ -8,10 +8,13 @@ import java.sql.SQLException;
 
 public class ViewProductPanel extends JPanel {
     ViewProductPanel(JFrame frame, Connection dbConnection, User user, Product product) {
-        int currentUserRating;
         RatingsDBManager ratingsDBManager = new RatingsDBManager(dbConnection);
+        CartsDBManager cartsDBManager = new CartsDBManager(dbConnection);
+        int currentUserRating;
+        Cart userCart;
         try {
             currentUserRating = ratingsDBManager.getRating(user.getUsername(), product.getId());
+            userCart = cartsDBManager.getOrCreateCartForUser(user.getUsername());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
             PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, user));
@@ -133,12 +136,16 @@ public class ViewProductPanel extends JPanel {
         submitRatingButton.setFocusable(false);
         submitRatingButton.addActionListener(e -> {
             try {
-                if (currentUserRating == 0) {
-                    ratingsDBManager.submitNewRating(user.getUsername(), product.getId(), ratingSlider.getValue());
+                if (ratingSlider.getValue() == 0) {
+                    JOptionPane.showMessageDialog(frame, "لطفا امتیازی بین 1 تا 5 انتخاب کنید.");
                 } else {
-                    ratingsDBManager.updateRating(user.getUsername(), product.getId(), ratingSlider.getValue());
+                    if (currentUserRating == 0) {
+                        ratingsDBManager.submitNewRating(user.getUsername(), product.getId(), ratingSlider.getValue());
+                    } else {
+                        ratingsDBManager.updateRating(user.getUsername(), product.getId(), ratingSlider.getValue());
+                    }
+                    JOptionPane.showMessageDialog(frame, "امتیاز شما با موفقیت ثبت شد.");
                 }
-                JOptionPane.showMessageDialog(frame, "امتیاز شما با موفقیت ثبت شد.");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
                 ex.printStackTrace();
@@ -167,12 +174,24 @@ public class ViewProductPanel extends JPanel {
 
         gbc.gridx = 3;
 
-        JButton buyButton = new JButton("خرید");
+        boolean isProductInCart = userCart.getProductsAndCount().keySet().stream().anyMatch(p -> p.getId() == product.getId());
+        JButton buyButton = isProductInCart ? new JButton("حذف از سبد") : new JButton("افزودن به سبد");
         buyButton.setFont(new Font("Arial", Font.PLAIN, 17));
         buyButton.setPreferredSize(new Dimension(100, 35));
         buyButton.setFocusable(false);
+        buyButton.addActionListener(e -> {
+            try {
+                if (isProductInCart) {
+                    cartsDBManager.removeProductFromCart(userCart.getId(), product.getId());
+                } else {
+                    cartsDBManager.addProductToCart(userCart.getId(), product.getId());
+                }
+                PanelUtil.changePanel(frame, this, new ViewProductPanel(frame, dbConnection, user, product));
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+        });
         this.add(buyButton, gbc);
-
-
     }
 }
