@@ -50,11 +50,22 @@ public class CartPanel extends JPanel {
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = cart.getProductsAndCount().size();
-        JButton emptyCartBut = new JButton("خالی کردن سبد");
-        emptyCartBut.setFont(new Font("Arial", Font.PLAIN, 20));
-        emptyCartBut.setPreferredSize(new Dimension(200, 35));
-        emptyCartBut.setFocusable(false);
-        lowerPanel.add(emptyCartBut, gbc);
+        JButton emptyCartButton = new JButton("خالی کردن سبد");
+        emptyCartButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        emptyCartButton.setPreferredSize(new Dimension(200, 35));
+        emptyCartButton.setFocusable(false);
+        emptyCartButton.addActionListener(e -> {
+            try {
+                for (Product product : cart.getProductsAndCount().keySet()) {
+                    cartsDBManager.removeProductFromCart(cart.getId(), product.getId());
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+            PanelUtil.changePanel(frame, this, new CartPanel(frame, dbConnection, user));
+        });
+        lowerPanel.add(emptyCartButton, gbc);
 
         gbc.gridx = 1;
         JButton buyButton = new JButton("پرداخت");
