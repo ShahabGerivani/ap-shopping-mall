@@ -88,6 +88,12 @@ public class ProductsDBManager {
         updateProductStmt.executeUpdate();
     }
 
+    public void deleteProduct(int id) throws SQLException {
+        PreparedStatement removeProductStmt = dbConnection.prepareStatement("DELETE FROM products WHERE id = ?");
+        removeProductStmt.setInt(1, id);
+        removeProductStmt.executeUpdate();
+    }
+
     public Product getProductById(int id) throws SQLException {
         PreparedStatement getProductStmt = dbConnection.prepareStatement("SELECT * FROM products WHERE id = ?");
         getProductStmt.setInt(1, id);
@@ -102,10 +108,12 @@ public class ProductsDBManager {
                     null,
                     this.calculateRatingForProduct(getProductRs.getInt("id"))
             );
-            try {
-                product.setImageFile(new File(getProductRs.getString("image_file_name")));
-            } catch (NullPointerException e) {
+
+            String imageFileName = getProductRs.getString("image_file_name");
+            if (imageFileName == null) {
                 product.setImageFile(null);
+            } else {
+                product.setImageFile(new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + imageFileName));
             }
 
             return product;

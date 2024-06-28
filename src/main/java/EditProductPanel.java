@@ -24,6 +24,8 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
     private User user;
 
     EditProductPanel(JFrame frame, Connection dbConnection, User admin, Product product) {
+        ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
+
         this.frame = frame;
         this.product = product;
         this.dbConnection = dbConnection;
@@ -101,6 +103,15 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         deleteButton.setFocusable(false);
         deleteButton.setPreferredSize(new Dimension(150, 35));
         deleteButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        deleteButton.addActionListener(e -> {
+            try {
+                productsDBManager.deleteProduct(product.getId());
+                PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, ""));
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+        });
         fields[5] = deleteButton;
 
         //تعریف دکمه ها
@@ -129,7 +140,6 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
                 }
 
                 // Updating the product in the database
-                ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
                 productsDBManager.updateProduct(
                         product.getId(),
                         productPrice,
