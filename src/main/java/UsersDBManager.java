@@ -1,7 +1,5 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UsersDBManager {
     private final Connection dbConnection;
@@ -40,5 +38,24 @@ public class UsersDBManager {
         setBalanceStmt.setDouble(1, balance);
         setBalanceStmt.setString(2, username);
         setBalanceStmt.executeUpdate();
+    }
+
+    public ArrayList<User> getAllNonAdminUsers() throws SQLException {
+        ArrayList<User> users = new ArrayList<>();
+
+        Statement getAllUsersStmt = dbConnection.createStatement();
+        ResultSet getAllUsersRs = getAllUsersStmt.executeQuery("SELECT * FROM users WHERE is_admin = 0");
+        while (getAllUsersRs.next()) {
+            users.add(new User(
+                    getAllUsersRs.getString("username"),
+                    getAllUsersRs.getString("name"),
+                    getAllUsersRs.getString("phone"),
+                    getAllUsersRs.getString("address"),
+                    getAllUsersRs.getDouble("balance"),
+                    getAllUsersRs.getBoolean("is_admin")
+            ));
+        }
+
+        return users;
     }
 }
