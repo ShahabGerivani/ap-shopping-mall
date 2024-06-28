@@ -5,9 +5,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class CartProductCardPanel extends JPanel {
-    CartProductCardPanel(JFrame frame, Connection dbConnection, User user, Product product, JPanel panel) {
+    CartProductCardPanel(JFrame frame, Connection dbConnection, User user, Product product, JPanel panel, Cart cart, CartsDBManager cartsDBManager) {
         JLabel imageLabel = new JLabel();
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -61,36 +62,45 @@ public class CartProductCardPanel extends JPanel {
         JSpinner productCountSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 20, 1));
         productCountSpinner.setPreferredSize(new Dimension(140, 30));
         productCountSpinner.setFont(new Font("Arial", Font.PLAIN, 18));
-        this.add(productCountSpinner,gbc);
+        productCountSpinner.setValue(cart.getProductsAndCount().get(product));
+        productCountSpinner.addChangeListener(e -> {
+            try {
+                cartsDBManager.setProductCountInCart(cart.getId(), product.getId(), (Integer) productCountSpinner.getValue());
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+        });
+        this.add(productCountSpinner, gbc);
 
-        gbc.gridx=1;
+        gbc.gridx = 1;
 
         JLabel priceField = new JLabel(String.valueOf(product.getPrice()));
         priceField.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(priceField, gbc);
 
-        gbc.gridx=2;
+        gbc.gridx = 2;
 
         JLabel priceLabel = new JLabel("قیمت: ");
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(priceLabel, gbc);
 
-        gbc.gridy=2;
-        gbc.gridx=0;
+        gbc.gridy = 2;
+        gbc.gridx = 0;
 
         JButton deleteButton = new JButton("حذف");
         deleteButton.setFont(new Font("Arial", Font.PLAIN, 20));
         deleteButton.setPreferredSize(new Dimension(100, 35));
         deleteButton.setFocusable(false);
-        this.add(deleteButton,gbc);
+        this.add(deleteButton, gbc);
 
-        gbc.gridx =  1;
+        gbc.gridx = 1;
 
         JLabel ratingField = new JLabel(String.valueOf(product.getRating()));
         ratingField.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(ratingField, gbc);
 
-        gbc.gridx= 2;
+        gbc.gridx = 2;
 
         JLabel ratingLabel = new JLabel("امتیاز: ");
         ratingLabel.setFont(new Font("Arial", Font.PLAIN, 20));

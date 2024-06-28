@@ -44,7 +44,7 @@ public class CartPanel extends JPanel {
         int i = 0;
         for (Product product : cart.getProductsAndCount().keySet()) {
             gbc.gridy = i++;
-            lowerPanel.add(new CartProductCardPanel(frame, dbConnection, user, product, this), gbc);
+            lowerPanel.add(new CartProductCardPanel(frame, dbConnection, user, product, this, cart, cartsDBManager), gbc);
         }
         gbc.insets = new Insets(5, 3, 10, 3);
         gbc.gridwidth = 1;
