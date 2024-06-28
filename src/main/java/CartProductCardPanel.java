@@ -92,6 +92,15 @@ public class CartProductCardPanel extends JPanel {
         deleteButton.setFont(new Font("Arial", Font.PLAIN, 20));
         deleteButton.setPreferredSize(new Dimension(100, 35));
         deleteButton.setFocusable(false);
+        deleteButton.addActionListener(e -> {
+            try {
+                cartsDBManager.removeProductFromCart(cart.getId(), product.getId());
+                PanelUtil.changePanel(frame, panel, new CartPanel(frame, dbConnection, user));
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+        });
         this.add(deleteButton, gbc);
 
         gbc.gridx = 1;
