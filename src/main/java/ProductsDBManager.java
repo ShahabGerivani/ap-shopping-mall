@@ -68,11 +68,29 @@ public class ProductsDBManager {
         insertNewProductStatement.executeUpdate();
     }
 
-    public void submitNewRating(String username, int product_id, int rating) throws SQLException {
-        PreparedStatement submitRatingStatement = dbConnection.prepareStatement("INSERT INTO ratings (user_username, product_id, rating) VALUES (?, ?, ?)");
-        submitRatingStatement.setString(1, username);
-        submitRatingStatement.setInt(2, product_id);
-        submitRatingStatement.setInt(3, rating);
-        submitRatingStatement.executeUpdate();
+    public Product getProductById(int id) throws SQLException {
+        PreparedStatement getProductStmt = dbConnection.prepareStatement("SELECT * FROM products WHERE id = ?");
+        getProductStmt.setInt(1, id);
+        ResultSet getProductRs = getProductStmt.executeQuery();
+        if (getProductRs.next()) {
+            Product product = new Product(
+                    getProductRs.getInt("id"),
+                    getProductRs.getString("name"),
+                    getProductRs.getDouble("price"),
+                    getProductRs.getString("description"),
+                    getProductRs.getInt("stock"),
+                    null,
+                    this.calculateRatingForProduct(getProductRs.getInt("id"))
+            );
+            try {
+                product.setImageFile(new File(getProductRs.getString("image_file_name")));
+            } catch (NullPointerException e) {
+                product.setImageFile(null);
+            }
+
+            return product;
+        } else {
+            return null;
+        }
     }
 }
