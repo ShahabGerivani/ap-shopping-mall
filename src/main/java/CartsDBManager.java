@@ -59,4 +59,11 @@ public class CartsDBManager {
             addProductToCartStmt.executeUpdate();
         }
     }
+
+    public void removeProductFromCart(int cart_id, int product_id) throws SQLException {
+        PreparedStatement removeProductStmt = dbConnection.prepareStatement("DELETE FROM carts_products WHERE cart_id = ? AND product_id = ?");
+        removeProductStmt.setInt(1, cart_id);
+        removeProductStmt.setInt(2, product_id);
+        removeProductStmt.executeUpdate();
+    }
 }
