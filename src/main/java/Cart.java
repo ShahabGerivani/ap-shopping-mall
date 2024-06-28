@@ -1,12 +1,13 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Cart {
     private final int id;
     private final String userUsername;
-    private HashMap<Product, Integer> productsAndCount;
+    private LinkedHashMap<Product, Integer> productsAndCount;
     private double total;
 
-    public Cart(int id, String userUsername, HashMap<Product, Integer> productsAndCount) {
+    public Cart(int id, String userUsername, LinkedHashMap<Product, Integer> productsAndCount) {
         this.id = id;
         this.userUsername = userUsername;
         this.productsAndCount = productsAndCount;
@@ -24,7 +25,7 @@ public class Cart {
         return productsAndCount;
     }
 
-    public void setProductsAndCount(HashMap<Product, Integer> productsAndCount) {
+    public void setProductsAndCount(LinkedHashMap<Product, Integer> productsAndCount) {
         this.productsAndCount = productsAndCount;
         calculateAndSetTotal();
     }

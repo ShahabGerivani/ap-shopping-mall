@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class CartsDBManager {
     private final Connection dbConnection;
@@ -21,7 +21,7 @@ public class CartsDBManager {
         getCartStmt.setString(1, username);
         ResultSet getCartRs = getCartStmt.executeQuery();
         if (getCartRs.next()) {
-            cart = new Cart(getCartRs.getInt("id"), username, new HashMap<>());
+            cart = new Cart(getCartRs.getInt("id"), username, new LinkedHashMap<>());
             PreparedStatement getProductsForCartStmt = dbConnection.prepareStatement("SELECT * FROM carts_products WHERE cart_id = ?");
             getProductsForCartStmt.setInt(1, cart.getId());
             ResultSet getProductsForCartRs = getProductsForCartStmt.executeQuery();
