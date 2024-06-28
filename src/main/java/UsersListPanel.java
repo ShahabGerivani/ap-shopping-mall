@@ -29,7 +29,7 @@ public class UsersListPanel extends JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
 
-        AdminNavBar adminNavBar = new AdminNavBar(admin.getBalance(), "خوش آمدید " + admin.getUsername(), frame, dbConnection, admin, this);
+        AdminNavBar adminNavBar = new AdminNavBar("خوش آمدید " + admin.getUsername(), frame, dbConnection, admin, this);
         UpperPanel.add(adminNavBar);
         this.add(adminNavBar, gridBagConstraints);
 

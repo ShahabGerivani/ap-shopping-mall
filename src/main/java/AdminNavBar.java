@@ -2,11 +2,14 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AdminNavBar extends JPanel {
-
-    AdminNavBar(double sales, String title, JFrame frame, Connection dbConnection, User user, JPanel panel) {
+    AdminNavBar(String title, JFrame frame, Connection dbConnection, User user, JPanel panel) {
         super();
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -18,9 +21,25 @@ public class AdminNavBar extends JPanel {
         gbc.gridy = 0;
         gbc.gridx = 0;
 
-        JLabel salesAmountLabel = new JLabel(String.valueOf(sales));
+        JLabel salesAmountLabel = new JLabel();
         salesAmountLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(salesAmountLabel, gbc);
+
+        // Calculating total sales and putting it in salesAmountLabel
+        double totalSales = 0;
+        try {
+            Statement calculateTotalSalesStmt = dbConnection.createStatement();
+            ResultSet calculateTotalSalesRs = calculateTotalSalesStmt.executeQuery("SELECT finalized_total FROM carts WHERE finalized = 1");
+            while (calculateTotalSalesRs.next()) {
+                totalSales += calculateTotalSalesRs.getDouble("finalized_total");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+            PanelUtil.changePanel(frame, panel, new SignInPanel(frame, dbConnection));
+            e.printStackTrace();
+            return;
+        }
+        salesAmountLabel.setText(String.format("%.2g%n", totalSales));
 
         gbc.gridx = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
