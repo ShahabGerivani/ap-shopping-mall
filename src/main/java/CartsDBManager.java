@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class CartsDBManager {
     private final Connection dbConnection;
@@ -21,7 +21,7 @@ public class CartsDBManager {
         getCartStmt.setString(1, username);
         ResultSet getCartRs = getCartStmt.executeQuery();
         if (getCartRs.next()) {
-            cart = new Cart(getCartRs.getInt("id"), username, new HashMap<>());
+            cart = new Cart(getCartRs.getInt("id"), username, new LinkedHashMap<>());
             PreparedStatement getProductsForCartStmt = dbConnection.prepareStatement("SELECT * FROM carts_products WHERE cart_id = ?");
             getProductsForCartStmt.setInt(1, cart.getId());
             ResultSet getProductsForCartRs = getProductsForCartStmt.executeQuery();
@@ -43,21 +43,18 @@ public class CartsDBManager {
     }
 
     public void addProductToCart(int cart_id, int product_id) throws SQLException {
-        PreparedStatement checkProductInCartStmt = dbConnection.prepareStatement("SELECT id, product_count FROM carts_products WHERE cart_id = ? AND product_id = ?");
-        checkProductInCartStmt.setInt(1, cart_id);
-        checkProductInCartStmt.setInt(2, product_id);
-        ResultSet checkProductInCartRs = checkProductInCartStmt.executeQuery();
-        if (checkProductInCartRs.next()) {
-            PreparedStatement addProductCountInCartStmt = dbConnection.prepareStatement("UPDATE carts_products SET product_count = ? WHERE id = ?");
-            addProductCountInCartStmt.setInt(1, checkProductInCartRs.getInt("product_count") + 1);
-            addProductCountInCartStmt.setInt(2, checkProductInCartRs.getInt("id"));
-            addProductCountInCartStmt.executeUpdate();
-        } else {
-            PreparedStatement addProductToCartStmt = dbConnection.prepareStatement("INSERT INTO carts_products (cart_id, product_id) VALUES (?, ?)");
-            addProductToCartStmt.setInt(1, cart_id);
-            addProductToCartStmt.setInt(2, product_id);
-            addProductToCartStmt.executeUpdate();
-        }
+        PreparedStatement addProductToCartStmt = dbConnection.prepareStatement("INSERT INTO carts_products (cart_id, product_id) VALUES (?, ?)");
+        addProductToCartStmt.setInt(1, cart_id);
+        addProductToCartStmt.setInt(2, product_id);
+        addProductToCartStmt.executeUpdate();
+    }
+
+    public void setProductCountInCart(int cart_id, int product_id, int product_count) throws SQLException {
+        PreparedStatement addProductCountInCartStmt = dbConnection.prepareStatement("UPDATE carts_products SET product_count = ? WHERE cart_id = ? AND product_id = ?");
+        addProductCountInCartStmt.setInt(1, product_count);
+        addProductCountInCartStmt.setInt(2, cart_id);
+        addProductCountInCartStmt.setInt(3, product_id);
+        addProductCountInCartStmt.executeUpdate();
     }
 
     public void removeProductFromCart(int cart_id, int product_id) throws SQLException {
