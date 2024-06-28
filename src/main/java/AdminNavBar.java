@@ -5,12 +5,12 @@ import java.sql.Connection;
 
 public class AdminNavBar extends JPanel {
 
-    AdminNavBar(double sales , String title, JFrame frame, Connection dbConnection, User user, JPanel panel){
+    AdminNavBar(double sales, String title, JFrame frame, Connection dbConnection, User user, JPanel panel) {
         super();
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         gbc.weightx = 1;
         gbc.weighty = 1;
@@ -23,7 +23,7 @@ public class AdminNavBar extends JPanel {
         this.add(salesAmountLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel salesLabel = new JLabel("فروش :");
         salesLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -31,14 +31,14 @@ public class AdminNavBar extends JPanel {
 
         gbc.gridx = 2;
 
-        gbc.insets = new Insets(5,80,5,80);
+        gbc.insets = new Insets(5, 80, 5, 80);
 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(titleLabel, gbc);
 
-        gbc.gridx = 3 ;
-        gbc.insets = new Insets(5,5,5,5);
+        gbc.gridx = 3;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         JButton mainPanelButton = new JButton("صفحه اصلی");
         mainPanelButton.setFocusable(false);
@@ -54,12 +54,13 @@ public class AdminNavBar extends JPanel {
         newProductButton.setFont(new Font("Arial", Font.PLAIN, 15));
         this.add(newProductButton, gbc);
 
-        gbc.gridx=5;
+        gbc.gridx = 5;
 
         JButton usersListButton = new JButton("لیست کاربران");
         usersListButton.setFocusable(false);
         usersListButton.setPreferredSize(new Dimension(105, 35));
         usersListButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        usersListButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new UsersListPanel(frame, dbConnection, user)));
         this.add(usersListButton, gbc);
 
         Border blackLine = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
