@@ -64,7 +64,7 @@ public class CartsDBManager {
         removeProductStmt.executeUpdate();
     }
 
-    public void finalizeCart(Cart cart) throws SQLException {
+    public void finalizeCart(User user, Cart cart) throws SQLException {
         double finalizedTotal = 0;
 
         PreparedStatement buyProductsStmt;
@@ -80,5 +80,10 @@ public class CartsDBManager {
         finalizeCartStmt.setDouble(1, finalizedTotal);
         finalizeCartStmt.setInt(2, cart.getId());
         finalizeCartStmt.executeUpdate();
+
+        PreparedStatement updateBalanceForUser = dbConnection.prepareStatement("UPDATE users SET balance = ? WHERE username = ?");
+        updateBalanceForUser.setDouble(1, user.getBalance() - finalizedTotal);
+        updateBalanceForUser.setString(2, user.getUsername());
+        updateBalanceForUser.executeUpdate();
     }
 }

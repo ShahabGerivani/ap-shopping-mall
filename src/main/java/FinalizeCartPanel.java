@@ -117,10 +117,11 @@ public class FinalizeCartPanel extends JPanel {
                 JOptionPane.showMessageDialog(frame, "موجودی کافی نیست.");
             } else {
                 CartsDBManager cartsDBManager = new CartsDBManager(dbConnection);
+                UsersDBManager usersDBManager = new UsersDBManager(dbConnection);
                 try {
-                    cartsDBManager.finalizeCart(cart);
+                    cartsDBManager.finalizeCart(user, cart);
                     JOptionPane.showMessageDialog(frame, "خرید با موفقیت انجام شد.");
-                    PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, user, UserMainPanel.SORT_DEFAULT, ""));
+                    PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, usersDBManager.getUser(user.getUsername()), UserMainPanel.SORT_DEFAULT, ""));
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
                     ex.printStackTrace();
