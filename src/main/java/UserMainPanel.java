@@ -20,7 +20,7 @@ public class UserMainPanel extends JPanel {
         ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
         ArrayList<Product> products;
         try {
-            products = productsDBManager.getAllProducts();
+            products = productsDBManager.getAllProducts(!user.isAdmin());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
             PanelUtil.changePanel(frame, this, new ProfilePanel(frame, dbConnection, user));
@@ -57,15 +57,14 @@ public class UserMainPanel extends JPanel {
         gridBagConstraints.weightx = 1;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        if (!user.isAdmin()){
+        if (!user.isAdmin()) {
             UserNavBar userNavBar = new UserNavBar(user.getBalance(), "خوش آمدید " + user.getUsername(), frame, dbConnection, user, this);
             UpperPanel.add(userNavBar);
             this.add(userNavBar, gridBagConstraints);
-        }
-        else {
+        } else {
             AdminNavBar adminNavBar = new AdminNavBar("خوش آمدید" + user.getUsername(), frame, dbConnection, user, this);
             UpperPanel.add(adminNavBar);
-            this.add(adminNavBar,gridBagConstraints);
+            this.add(adminNavBar, gridBagConstraints);
         }
 
         lowerPanel.setLayout(new GridBagLayout());

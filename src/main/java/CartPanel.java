@@ -73,14 +73,9 @@ public class CartPanel extends JPanel {
         buyButton.setPreferredSize(new Dimension(100, 35));
         buyButton.setFocusable(false);
         buyButton.addActionListener(e -> {
-            if (cart.getTotal() > user.getBalance()) {
-                JOptionPane.showMessageDialog(frame, "موجودی کافی نیست.");
-            } else {
-                PanelUtil.changePanel(frame,this,new FinalizeCartPanel(frame,dbConnection,user,cart));
-            }
+            PanelUtil.changePanel(frame, this, new FinalizeCartPanel(frame, dbConnection, user, cart));
         });
         lowerPanel.add(buyButton, gbc);
-
 
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;

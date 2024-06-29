@@ -23,7 +23,7 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
     private Connection dbConnection;
     private User user;
 
-    EditProductPanel(JFrame frame, Connection dbConnection, User admin, Product product) {
+    EditProductPanel(JFrame frame, Connection dbConnection, User admin, Product product, File selectedImageFile) {
         ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
 
         this.frame = frame;
@@ -35,7 +35,11 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         // عکس بالای صفحه
         label = new JLabel();
         try {
-            if (product.getImageFile() != null) {
+            if (selectedImageFile != null) {
+                BufferedImage bufferedImage = ImageIO.read(selectedImageFile);
+                ImageIcon imageIcon = new ImageIcon(bufferedImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+                label.setIcon(imageIcon);
+            } else if (product.getImageFile() != null) {
                 BufferedImage bufferedImage = ImageIO.read(product.getImageFile());
                 ImageIcon imageIcon = new ImageIcon(bufferedImage.getScaledInstance(150, 150, Image.SCALE_DEFAULT));
                 label.setIcon(imageIcon);
@@ -89,9 +93,9 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         productStockSpinner.setPreferredSize(new Dimension(140, 30));
         productStockSpinner.setFont(new Font("Arial", Font.PLAIN, 18));
         fields[3] = productStockSpinner;
-        JButton choseImageButton = new JButton("ویرایش");
-        if (product.getImageFile() != null) {
-            choseImageButton.setText(product.getImageFile().getName());
+        JButton choseImageButton = new JButton("انتخاب");
+        if (selectedImageFile != null) {
+            choseImageButton.setText(selectedImageFile.getName());
         }
         choseImageButton.setPreferredSize(new Dimension(120, 30));
         choseImageButton.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -106,9 +110,13 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         deleteButton.addActionListener(e -> {
             try {
                 productsDBManager.deleteProduct(product.getId());
+                FileUtils.delete(product.getImageFile());
                 PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, ""));
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "خطا در پاک کردن عکس. لطفا بعدا دوباره امتحان کنید.");
                 ex.printStackTrace();
             }
         });
@@ -133,9 +141,9 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
                 int productStock = (int) productStockSpinner.getValue();
 
                 // Saving the image
-                if (product.getImageFile() != null) {
-                    File newProductImageFile = new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + product.getId() + "." + FilenameUtils.getExtension(product.getImageFile().getName()));
-                    FileUtils.copyFile(product.getImageFile(), newProductImageFile);
+                if (selectedImageFile != null) {
+                    File newProductImageFile = new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + product.getId() + "." + FilenameUtils.getExtension(selectedImageFile.getName()));
+                    FileUtils.copyFile(selectedImageFile, newProductImageFile);
                     product.setImageFile(newProductImageFile);
                 }
 
@@ -173,8 +181,6 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         if (option == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
         }
-        Product productForChangeImage = product;
-        productForChangeImage.setImageFile(file);
-        PanelUtil.changePanel(this.frame, this, new EditProductPanel(this.frame, this.dbConnection, this.user, productForChangeImage));
+        PanelUtil.changePanel(this.frame, this, new EditProductPanel(this.frame, this.dbConnection, this.user, product, file));
     }
 }
