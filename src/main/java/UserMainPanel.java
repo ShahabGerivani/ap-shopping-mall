@@ -63,8 +63,7 @@ public class UserMainPanel extends JPanel {
             this.add(userNavBar, gridBagConstraints);
         }
         else {
-            // ورودی اول مقدار فروش بعدا درست می شود
-            AdminNavBar adminNavBar = new AdminNavBar(100,"خوش آمدید" + user.getUsername(), frame, dbConnection, user, this);
+            AdminNavBar adminNavBar = new AdminNavBar("خوش آمدید" + user.getUsername(), frame, dbConnection, user, this);
             UpperPanel.add(adminNavBar);
             this.add(adminNavBar,gridBagConstraints);
         }

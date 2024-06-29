@@ -1,3 +1,6 @@
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -8,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class EditProductPanel extends AbstractEditPanel implements ActionListener {
 
@@ -19,11 +23,13 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
     private Connection dbConnection;
     private User user;
 
-    EditProductPanel(JFrame frame, Connection dbConnection, User user, Product product) {
+    EditProductPanel(JFrame frame, Connection dbConnection, User admin, Product product) {
+        ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
+
         this.frame = frame;
         this.product = product;
         this.dbConnection = dbConnection;
-        this.user = user;
+        this.user = admin;
         fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes()));
 
         // عکس بالای صفحه
@@ -78,11 +84,11 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         productDescriptionTextField.setFont(new Font("Arial", Font.PLAIN, 14));
         productDescriptionTextField.setLineWrap(true);
         fields[2] = productDescriptionTextField;
-        JSpinner productInventorySpinner = new JSpinner(new SpinnerNumberModel(1, 0, 10000, 1));
-        productInventorySpinner.setValue(product.getStock());
-        productInventorySpinner.setPreferredSize(new Dimension(140, 30));
-        productInventorySpinner.setFont(new Font("Arial", Font.PLAIN, 18));
-        fields[3] = productInventorySpinner;
+        JSpinner productStockSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 10000, 1));
+        productStockSpinner.setValue(product.getStock());
+        productStockSpinner.setPreferredSize(new Dimension(140, 30));
+        productStockSpinner.setFont(new Font("Arial", Font.PLAIN, 18));
+        fields[3] = productStockSpinner;
         JButton choseImageButton = new JButton("ویرایش");
         if (product.getImageFile() != null) {
             choseImageButton.setText(product.getImageFile().getName());
@@ -97,6 +103,15 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         deleteButton.setFocusable(false);
         deleteButton.setPreferredSize(new Dimension(150, 35));
         deleteButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        deleteButton.addActionListener(e -> {
+            try {
+                productsDBManager.deleteProduct(product.getId());
+                PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, ""));
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            }
+        });
         fields[5] = deleteButton;
 
         //تعریف دکمه ها
@@ -105,11 +120,46 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
         cancelButton.setFocusable(false);
         cancelButton.setPreferredSize(new Dimension(150, 35));
         cancelButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, "")));
         buttons[0] = cancelButton;
         JButton submitButton = new JButton("ثبت");
         submitButton.setFocusable(false);
         submitButton.setPreferredSize(new Dimension(150, 35));
         submitButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        submitButton.addActionListener(e -> {
+            try {
+                double productPrice = Double.parseDouble(productPriceTextField.getText());
+                String productDescription = productDescriptionTextField.getText();
+                int productStock = (int) productStockSpinner.getValue();
+
+                // Saving the image
+                if (product.getImageFile() != null) {
+                    File newProductImageFile = new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + product.getId() + "." + FilenameUtils.getExtension(product.getImageFile().getName()));
+                    FileUtils.copyFile(product.getImageFile(), newProductImageFile);
+                    product.setImageFile(newProductImageFile);
+                }
+
+                // Updating the product in the database
+                productsDBManager.updateProduct(
+                        product.getId(),
+                        productPrice,
+                        productDescription,
+                        productStock,
+                        product.getImageFile() == null ? null : product.getImageFile().getName()
+                );
+
+                PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, ""));
+            } catch (NullPointerException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "لطفا یک عدد برای قیمت وارد کنید.");
+                ex.printStackTrace();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "ارور: فایل عکس ذخیره نشد. در صورت نیاز کالا را ویرایش کنید.");
+                ex.printStackTrace();
+            }
+        });
         buttons[1] = submitButton;
 
         construct(this);

@@ -46,10 +46,11 @@ public class ProductsDBManager {
                     null,
                     this.calculateRatingForProduct(productsRs.getInt("id"))
             );
-            try {
-                product.setImageFile(new File(productsRs.getString("image_file_name")));
-            } catch (NullPointerException e) {
+            String imageFileName = productsRs.getString("image_file_name");
+            if (imageFileName == null) {
                 product.setImageFile(null);
+            } else {
+                product.setImageFile(new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + imageFileName));
             }
             products.add(product);
         }
@@ -58,14 +59,39 @@ public class ProductsDBManager {
         return products;
     }
 
-    public void addNewProduct(String name, double price, String description, int stock, String imageFileName) throws SQLException {
-        PreparedStatement insertNewProductStatement = dbConnection.prepareStatement("INSERT INTO products (name, price, description, stock, image_file_name) VALUES (?, ?, ?, ?, ?)");
+    public int addNewProduct(String name, double price, String description, int stock, String imageExtension) throws SQLException {
+        PreparedStatement insertNewProductStatement = dbConnection.prepareStatement("INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
         insertNewProductStatement.setString(1, name);
         insertNewProductStatement.setDouble(2, price);
         insertNewProductStatement.setString(3, description);
         insertNewProductStatement.setInt(4, stock);
-        insertNewProductStatement.setString(5, imageFileName);
         insertNewProductStatement.executeUpdate();
+
+        insertNewProductStatement.getGeneratedKeys().next();
+        int id = insertNewProductStatement.getGeneratedKeys().getInt(1);
+        if (imageExtension != null) {
+            PreparedStatement setProductImageFileNameStmt = dbConnection.prepareStatement("UPDATE products SET image_file_name = ? WHERE id = ?");
+            setProductImageFileNameStmt.setString(1, id + "." + imageExtension);
+            setProductImageFileNameStmt.setInt(2, id);
+            setProductImageFileNameStmt.executeUpdate();
+        }
+        return id;
+    }
+
+    public void updateProduct(int id, double price, String description, int stock, String imageFileName) throws SQLException {
+        PreparedStatement updateProductStmt = dbConnection.prepareStatement("UPDATE products SET price = ?, description = ?, stock = ?, image_file_name = ? WHERE id = ?");
+        updateProductStmt.setDouble(1, price);
+        updateProductStmt.setString(2, description);
+        updateProductStmt.setInt(3, stock);
+        updateProductStmt.setString(4, imageFileName);
+        updateProductStmt.setInt(5, id);
+        updateProductStmt.executeUpdate();
+    }
+
+    public void deleteProduct(int id) throws SQLException {
+        PreparedStatement removeProductStmt = dbConnection.prepareStatement("DELETE FROM products WHERE id = ?");
+        removeProductStmt.setInt(1, id);
+        removeProductStmt.executeUpdate();
     }
 
     public Product getProductById(int id) throws SQLException {
@@ -82,10 +108,12 @@ public class ProductsDBManager {
                     null,
                     this.calculateRatingForProduct(getProductRs.getInt("id"))
             );
-            try {
-                product.setImageFile(new File(getProductRs.getString("image_file_name")));
-            } catch (NullPointerException e) {
+
+            String imageFileName = getProductRs.getString("image_file_name");
+            if (imageFileName == null) {
                 product.setImageFile(null);
+            } else {
+                product.setImageFile(new File(Main.PRODUCTS_IMAGES_FOLDER_PATH + imageFileName));
             }
 
             return product;
