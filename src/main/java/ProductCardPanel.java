@@ -3,7 +3,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -76,17 +75,17 @@ public class ProductCardPanel extends JPanel {
         this.add(productRateLabel, gbc);
 
         int y = 4;
-        if (user.isAdmin()){
-            gbc.gridx=0;
-            gbc.gridy=4;
+        if (user.isAdmin()) {
+            gbc.gridx = 0;
+            gbc.gridy = 4;
             JLabel productStockField = new JLabel(String.valueOf(product.getStock()));
             productStockField.setFont(new Font("Arial", Font.PLAIN, 20));
-            this.add(productStockField,gbc);
+            this.add(productStockField, gbc);
 
-            gbc.gridx=1;
+            gbc.gridx = 1;
             JLabel productStockLabel = new JLabel("موجودی:");
             productStockLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-            this.add(productStockLabel,gbc);
+            this.add(productStockLabel, gbc);
             y++;
         }
 
@@ -95,15 +94,12 @@ public class ProductCardPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 0, 6, 0);
         JButton viewButton;
-        if (!user.isAdmin()){
+        if (!user.isAdmin()) {
             viewButton = new JButton("مشاهده");
             viewButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new ViewProductPanel(frame, dbConnection, user, product)));
-        }
-        else {
+        } else {
             viewButton = new JButton("ویرایش");
-            viewButton.addActionListener(e -> {
-                PanelUtil.changePanel(frame, panel, new EditProductPanel(frame, dbConnection, user, product));
-            });
+            viewButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new EditProductPanel(frame, dbConnection, user, product, null)));
         }
         viewButton.setFont(new Font("Arial", Font.PLAIN, 20));
         viewButton.setPreferredSize(new Dimension(100, 35));

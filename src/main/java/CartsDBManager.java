@@ -63,4 +63,22 @@ public class CartsDBManager {
         removeProductStmt.setInt(2, product_id);
         removeProductStmt.executeUpdate();
     }
+
+    public void finalizeCart(Cart cart) throws SQLException {
+        double finalizedTotal = 0;
+
+        PreparedStatement buyProductsStmt;
+        for (Product product : cart.getProductsAndCount().keySet()) {
+            buyProductsStmt = dbConnection.prepareStatement("UPDATE products SET stock = ? WHERE id = ?");
+            buyProductsStmt.setInt(1, product.getStock() - cart.getProductsAndCount().get(product));
+            buyProductsStmt.setInt(2, product.getId());
+            buyProductsStmt.executeUpdate();
+            finalizedTotal += cart.getProductsAndCount().get(product) * product.getPrice();
+        }
+
+        PreparedStatement finalizeCartStmt = dbConnection.prepareStatement("UPDATE carts SET finalized = 1, finalized_total = ? WHERE id = ?");
+        finalizeCartStmt.setDouble(1, finalizedTotal);
+        finalizeCartStmt.setInt(2, cart.getId());
+        finalizeCartStmt.executeUpdate();
+    }
 }

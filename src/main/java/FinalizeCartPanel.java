@@ -3,14 +3,15 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class FinalizeCartPanel extends JPanel {
     FinalizeCartPanel(JFrame frame, Connection dbConnection, User user, Cart cart) {
         JPanel panel = new JPanel();
-        panel.setSize(new Dimension(800,600));
+        panel.setSize(new Dimension(800, 600));
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx=1;
+        gbc.weightx = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -21,28 +22,28 @@ public class FinalizeCartPanel extends JPanel {
 
         JLabel productTotalPriceLabel = new JLabel("قیمت کل", SwingConstants.RIGHT);
         productTotalPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        productTotalPriceLabel.setBorder(new CompoundBorder(blackLine,padding));
+        productTotalPriceLabel.setBorder(new CompoundBorder(blackLine, padding));
         panel.add(productTotalPriceLabel, gbc);
 
         gbc.gridx = 1;
 
-        JLabel productCountLabel = new JLabel("تعداد",SwingConstants.RIGHT);
+        JLabel productCountLabel = new JLabel("تعداد", SwingConstants.RIGHT);
         productCountLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        productCountLabel.setBorder(new CompoundBorder(blackLine,padding));
+        productCountLabel.setBorder(new CompoundBorder(blackLine, padding));
         panel.add(productCountLabel, gbc);
 
         gbc.gridx = 2;
 
-        JLabel productPriceLabel = new JLabel("قیمت",SwingConstants.RIGHT);
+        JLabel productPriceLabel = new JLabel("قیمت", SwingConstants.RIGHT);
         productPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        productPriceLabel.setBorder(new CompoundBorder(blackLine,padding));
+        productPriceLabel.setBorder(new CompoundBorder(blackLine, padding));
         panel.add(productPriceLabel, gbc);
 
         gbc.gridx = 3;
 
-        JLabel productNameLabel = new JLabel("نام",SwingConstants.RIGHT);
+        JLabel productNameLabel = new JLabel("نام", SwingConstants.RIGHT);
         productNameLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        productNameLabel.setBorder(new CompoundBorder(blackLine,padding));
+        productNameLabel.setBorder(new CompoundBorder(blackLine, padding));
         panel.add(productNameLabel, gbc);
 
         int row = 1;
@@ -51,50 +52,50 @@ public class FinalizeCartPanel extends JPanel {
             gbc.gridy = row;
             gbc.gridx = 0;
 
-            JLabel productTotalPriceField = new JLabel(String.valueOf(cart.getProductsAndCount().get(product) * product.getPrice()),SwingConstants.RIGHT);
+            JLabel productTotalPriceField = new JLabel(String.valueOf(cart.getProductsAndCount().get(product) * product.getPrice()), SwingConstants.RIGHT);
             productTotalPriceField.setFont(new Font("Arial", Font.PLAIN, 20));
-            productTotalPriceField.setBorder(new CompoundBorder(blackLine,padding));
+            productTotalPriceField.setBorder(new CompoundBorder(blackLine, padding));
             panel.add(productTotalPriceField, gbc);
 
             gbc.gridx = 1;
 
-            JLabel productCountField = new JLabel(String.valueOf(cart.getProductsAndCount().get(product)),SwingConstants.RIGHT);
+            JLabel productCountField = new JLabel(String.valueOf(cart.getProductsAndCount().get(product)), SwingConstants.RIGHT);
             productCountField.setFont(new Font("Arial", Font.PLAIN, 20));
-            productCountField.setBorder(new CompoundBorder(blackLine,padding));
+            productCountField.setBorder(new CompoundBorder(blackLine, padding));
             panel.add(productCountField, gbc);
 
             gbc.gridx = 2;
 
-            JLabel productPriceField = new JLabel(String.valueOf(product.getPrice()),SwingConstants.RIGHT);
+            JLabel productPriceField = new JLabel(String.valueOf(product.getPrice()), SwingConstants.RIGHT);
             productPriceField.setFont(new Font("Arial", Font.PLAIN, 20));
-            productPriceField.setBorder(new CompoundBorder(blackLine,padding));
+            productPriceField.setBorder(new CompoundBorder(blackLine, padding));
             panel.add(productPriceField, gbc);
 
             gbc.gridx = 3;
 
-            JLabel productNameField = new JLabel(product.getName(),SwingConstants.RIGHT);
+            JLabel productNameField = new JLabel(product.getName(), SwingConstants.RIGHT);
             productNameField.setFont(new Font("Arial", Font.PLAIN, 20));
-            productNameField.setBorder(new CompoundBorder(blackLine,padding));
-            panel.add(productNameField,gbc);
+            productNameField.setBorder(new CompoundBorder(blackLine, padding));
+            panel.add(productNameField, gbc);
 
             row++;
         }
         gbc.gridx = 0;
         gbc.gridy = row;
 
-        JLabel cartTotalPriceField = new JLabel(String.valueOf(cart.getTotal()),SwingConstants.RIGHT);
+        JLabel cartTotalPriceField = new JLabel(String.valueOf(cart.getTotal()), SwingConstants.RIGHT);
         cartTotalPriceField.setFont(new Font("Arial", Font.PLAIN, 20));
-        cartTotalPriceField.setBorder(new CompoundBorder(blackLine,padding));
-        panel.add(cartTotalPriceField,gbc);
+        cartTotalPriceField.setBorder(new CompoundBorder(blackLine, padding));
+        panel.add(cartTotalPriceField, gbc);
 
-        gbc.gridx=1;
+        gbc.gridx = 1;
 
-        JLabel cartTotalPriceLabel = new JLabel("جمع",SwingConstants.RIGHT);
+        JLabel cartTotalPriceLabel = new JLabel("جمع", SwingConstants.RIGHT);
         cartTotalPriceLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        cartTotalPriceLabel.setBorder(new CompoundBorder(blackLine,padding));
-        panel.add(cartTotalPriceLabel,gbc);
+        cartTotalPriceLabel.setBorder(new CompoundBorder(blackLine, padding));
+        panel.add(cartTotalPriceLabel, gbc);
 
-        gbc.gridx=0;
+        gbc.gridx = 0;
         gbc.gridy = ++row;
         gbc.gridwidth = 2;
 
@@ -102,8 +103,8 @@ public class FinalizeCartPanel extends JPanel {
         cancelButton.setPreferredSize(new Dimension(100, 35));
         cancelButton.setFont(new Font("Arial", Font.PLAIN, 20));
         cancelButton.setFocusable(false);
-        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame,this,new CartPanel(frame,dbConnection,user)));
-        panel.add(cancelButton,gbc);
+        cancelButton.addActionListener(e -> PanelUtil.changePanel(frame, this, new CartPanel(frame, dbConnection, user)));
+        panel.add(cancelButton, gbc);
 
         gbc.gridx = 2;
 
@@ -111,10 +112,25 @@ public class FinalizeCartPanel extends JPanel {
         payButton.setPreferredSize(new Dimension(100, 35));
         payButton.setFont(new Font("Arial", Font.PLAIN, 20));
         payButton.setFocusable(false);
-        panel.add(payButton,gbc);
+        payButton.addActionListener(e -> {
+            if (cart.getTotal() > user.getBalance()) {
+                JOptionPane.showMessageDialog(frame, "موجودی کافی نیست.");
+            } else {
+                CartsDBManager cartsDBManager = new CartsDBManager(dbConnection);
+                try {
+                    cartsDBManager.finalizeCart(cart);
+                    JOptionPane.showMessageDialog(frame, "خرید با موفقیت انجام شد.");
+                    PanelUtil.changePanel(frame, this, new UserMainPanel(frame, dbConnection, user, UserMainPanel.SORT_DEFAULT, ""));
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(frame, "اختلال در ارتباط با پایگاه داده. لطفا بعدا دوباره امتحان کنید.");
+                    ex.printStackTrace();
+                }
+            }
+        });
+        panel.add(payButton, gbc);
 
         JScrollPane scrollPanel = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        this.setLayout(new GridLayout(1,1));
+        this.setLayout(new GridLayout(1, 1));
         this.add(scrollPanel);
     }
 }

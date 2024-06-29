@@ -30,12 +30,13 @@ public class ProductsDBManager {
         else return (double) ratingsSum / ratingsCount;
     }
 
-    public ArrayList<Product> getAllProducts() throws SQLException {
+    public ArrayList<Product> getAllProducts(boolean onlyAvailable) throws SQLException {
         ArrayList<Product> products = new ArrayList<>();
         Product product;
 
         Statement statement = dbConnection.createStatement();
-        ResultSet productsRs = statement.executeQuery("SELECT * FROM products");
+        String query = onlyAvailable ? "SELECT * FROM products WHERE stock != 0" : "SELECT * FROM products";
+        ResultSet productsRs = statement.executeQuery(query);
         while (productsRs.next()) {
             product = new Product(
                     productsRs.getInt("id"),
