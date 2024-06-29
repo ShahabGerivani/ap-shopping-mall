@@ -19,9 +19,9 @@ public class EditProductPanel extends AbstractEditPanel implements ActionListene
     private static final String filePath = ".//";
     private final JFileChooser fileChooser = new JFileChooser(filePath);
     private final JFrame frame;
-    private Product product;
-    private Connection dbConnection;
-    private User user;
+    private final Product product;
+    private final Connection dbConnection;
+    private final User user;
 
     EditProductPanel(JFrame frame, Connection dbConnection, User admin, Product product, File selectedImageFile) {
         ProductsDBManager productsDBManager = new ProductsDBManager(dbConnection);
