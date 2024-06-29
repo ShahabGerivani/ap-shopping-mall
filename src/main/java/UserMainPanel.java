@@ -62,7 +62,7 @@ public class UserMainPanel extends JPanel {
             UpperPanel.add(userNavBar);
             this.add(userNavBar, gridBagConstraints);
         } else {
-            AdminNavBar adminNavBar = new AdminNavBar("خوش آمدید" + user.getUsername(), frame, dbConnection, user, this);
+            AdminNavBar adminNavBar = new AdminNavBar("انبار", frame, dbConnection, user, this);
             UpperPanel.add(adminNavBar);
             this.add(adminNavBar, gridBagConstraints);
         }

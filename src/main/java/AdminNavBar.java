@@ -59,6 +59,16 @@ public class AdminNavBar extends JPanel {
         gbc.gridx = 3;
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        JButton logoutButton = new JButton("خروج");
+        logoutButton.setFocusable(false);
+        logoutButton.setPreferredSize(new Dimension(100, 35));
+        logoutButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        logoutButton.addActionListener(e -> PanelUtil.changePanel(frame,panel, new SignInPanel(frame, dbConnection)));
+        this.add(logoutButton);
+
+        gbc.gridx = 4;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
         JButton mainPanelButton = new JButton("صفحه اصلی");
         mainPanelButton.setFocusable(false);
         mainPanelButton.setPreferredSize(new Dimension(100, 35));
@@ -66,7 +76,7 @@ public class AdminNavBar extends JPanel {
         mainPanelButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new UserMainPanel(frame, dbConnection, admin, UserMainPanel.SORT_DEFAULT, "")));
         this.add(mainPanelButton, gbc);
 
-        gbc.gridx = 4;
+        gbc.gridx = 5;
 
         JButton newProductButton = new JButton("محصول جدید");
         newProductButton.setFocusable(false);
@@ -75,7 +85,7 @@ public class AdminNavBar extends JPanel {
         newProductButton.addActionListener(e -> PanelUtil.changePanel(frame, panel, new NewProductPanel(frame, dbConnection, admin)));
         this.add(newProductButton, gbc);
 
-        gbc.gridx = 5;
+        gbc.gridx = 6;
 
         JButton usersListButton = new JButton("لیست کاربران");
         usersListButton.setFocusable(false);
